@@ -5,16 +5,20 @@ import mongoose from "mongoose";
 import { typeDefs } from "./typeDefs";
 import { resolvers } from "./resolvers";
 
-const startServer = async () => {
+(async () => {
   const server = new ApolloServer({ typeDefs, resolvers });
 
   const app = express();
   server.applyMiddleware({ app });
 
-  await mongoose.connect("mongodb://localhost:27017/SIGHT_DASH_DEV", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  });
+  try {
+    await mongoose.connect("mongodb://localhost:27017/SIGHT_DASH_DEV", {
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+    });
+  } catch(e) {
+    console.error("Database connection failed");
+  }
 
   const port = process.env.PORT || 4000;
 
@@ -23,6 +27,4 @@ const startServer = async () => {
       `🚀 Server ready at http://localhost:${port}${server.graphqlPath}`
     );
   });
-};
-
-startServer();
+})();
