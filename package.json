@@ -1,0 +1,25 @@
+{
+  "name": "sight-dash",
+  "version": "1.0.0",
+  "main": "src/server.ts",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon --exec sucrase-node src/server.ts",
+    "build": "tsc",
+    "prod": "node ./dist/server.js"
+  },
+  "dependencies": {
+    "apollo-server-express": "^2.9.14",
+    "bcryptjs": "^2.4.3",
+    "express": "^4.17.1",
+    "graphql": "^14.5.8",
+    "mongoose": "^5.8.2"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.2",
+    "@types/mongoose": "^5.5.34",
+    "nodemon": "^2.0.2",
+    "sucrase": "^3.10.1",
+    "typescript": "^3.7.4"
+  }
+}
