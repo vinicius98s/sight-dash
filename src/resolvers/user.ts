@@ -1,7 +1,11 @@
-import { ApolloError } from "apollo-server-express";
+import { ApolloError } from 'apollo-server-express';
 
-import { AddUser, UpdateUser } from "../typeDefs";
-import User, { UserSchema } from "../schemas/User";
+import { AddUser, UpdateUser } from '../typeDefs';
+import User, { UserSchema } from '../schemas/User';
+
+type Context = {
+  user?: UserSchema;
+};
 
 export async function addUser(
   _,
@@ -10,7 +14,7 @@ export async function addUser(
   const userAlreadyExists = await User.findOne({ email: user.email });
 
   if (userAlreadyExists) {
-    throw new ApolloError("User already exists", "400");
+    throw new ApolloError('User already exists');
   }
 
   return await User.create(user);
@@ -18,19 +22,20 @@ export async function addUser(
 
 export async function updateUser(
   _,
-  { id, name, password, oldPassword }: UpdateUser
+  { name, password, oldPassword }: UpdateUser,
+  { user }: Context
 ): Promise<UserSchema> {
-  const user = await User.findById(id);
-
   if (!user) {
-    throw new ApolloError("User not found", "400");
+    throw new ApolloError('You must be authenticated');
   }
 
-  if (password && !oldPassword)
-    throw new ApolloError("Old password must be provided", "400");
+  if (password && !oldPassword) {
+    throw new ApolloError('Old password must be provided');
+  }
 
-  if (oldPassword && !password)
-    throw new ApolloError("You didn't provided the new password", "400");
+  if (oldPassword && !password) {
+    throw new ApolloError("You didn't provided the new password");
+  }
 
   if (password && oldPassword) {
     if (!(await user.comparePassword(oldPassword))) {
@@ -44,23 +49,24 @@ export async function updateUser(
   return await user.save();
 }
 
-export async function deleteUser(_, args): Promise<string> {
-  const user = await User.findByIdAndDelete(args.id);
+export async function deleteUser(_, __, { user }: Context): Promise<boolean> {
   if (!user) {
-    throw new ApolloError("User not found", "400");
+    throw new ApolloError('You must be authenticated');
   }
 
-  return user._id;
+  const { deletedCount } = await User.deleteOne({ _id: user._id });
+
+  return !!deletedCount;
 }
 
 export async function queryUsers(_, args): Promise<UserSchema[]> {
   if (args.id) {
     const user = await User.findById(args.id);
-    if (!user) throw new ApolloError("User not found", "400");
+    if (!user) throw new ApolloError('User not found');
     return [user];
   }
 
   return await User.find({
-    ...(args.email && { email: args.email })
+    ...(args.email && { email: args.email }),
   });
 }

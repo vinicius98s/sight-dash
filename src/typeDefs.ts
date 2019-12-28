@@ -1,4 +1,4 @@
-import { gql } from "apollo-server-express";
+import { gql } from 'apollo-server-express';
 
 export type AddUser = {
   email: string;
@@ -7,10 +7,14 @@ export type AddUser = {
 };
 
 export type UpdateUser = {
-  id: string;
   name?: string;
   oldPassword?: string;
   password?: string;
+};
+
+export type Login = {
+  email: string;
+  password: string;
 };
 
 export const typeDefs = gql`
@@ -33,12 +37,8 @@ export const typeDefs = gql`
 
   type Mutation {
     addUser(user: AddUser!): User!
-    updateUser(
-      id: ID!
-      name: String
-      password: String
-      oldPassword: String
-    ): User!
-    deleteUser(id: ID!): ID!
+    updateUser(name: String, password: String, oldPassword: String): User!
+    deleteUser: Boolean!
+    login(email: String!, password: String!): String!
   }
 `;
