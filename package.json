@@ -2,6 +2,7 @@
   "private": true,
   "scripts": {
     "dev:server": "yarn workspace server dev",
+    "update-schema": "yarn workspace server update-schema",
     "start:client": "yarn workspace client start"
   },
   "workspaces": [

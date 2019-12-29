@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "nodemon --exec sucrase-node src/server.ts",
     "build": "tsc",
-    "prod": "node ./dist/server.js"
+    "prod": "node ./dist/server.js",
+    "update-schema": "ts-node -r tsconfig-paths/register scripts/updateSchema.ts"
   },
   "dependencies": {
     "apollo-server-express": "^2.9.14",
@@ -15,7 +16,8 @@
     "express": "^4.17.1",
     "graphql": "^14.5.8",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.8.2"
+    "mongoose": "^5.8.2",
+    "ts-node": "^8.5.4"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
@@ -30,6 +32,7 @@
     "nodemon": "^2.0.2",
     "prettier": "^1.19.1",
     "sucrase": "^3.10.1",
+    "tsconfig-paths": "^3.9.0",
     "typescript": "^3.7.4"
   }
 }

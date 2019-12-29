@@ -19,6 +19,7 @@ module.exports = {
     sourceType: 'module',
   },
   rules: {
+    'linebreak-style': 'off',
     'space-before-function-paren': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
     'comma-dangle': 'off',
