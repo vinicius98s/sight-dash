@@ -1,7 +1,8 @@
 {
   "private": true,
   "scripts": {
-    "dev:server": "yarn workspace server dev"
+    "dev:server": "yarn workspace server dev",
+    "start:client": "yarn workspace client start"
   },
   "workspaces": [
     "packages/*"
