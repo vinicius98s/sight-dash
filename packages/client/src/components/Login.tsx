@@ -1,12 +1,14 @@
-import React from "react";
-import { graphql, createFragmentContainer } from "react-relay";
+import React from 'react';
+import { graphql, createFragmentContainer } from 'react-relay';
 
-import createQueryRendererModern from '../../relay/createQueryRendererModern';
-import { Login_query } from './__generated__/Login_query.graphql'
+import createQueryRendererModern from '../relay/createQueryRendererModern';
 
-const Login: React.FC<{ query?: Login_query }> = ({ query }) => {
+const Login: React.FC<{ query?: any }> = ({ query }) => {
   return (
-    <h1>working {':)'}{console.log(query?.users)}</h1>
+    <h1>
+      working :)
+      {console.log(query.users)}
+    </h1>
   );
 };
 
@@ -20,7 +22,7 @@ export const LoginFragmentContainer = createFragmentContainer(Login, {
         password
       }
     }
-  `
+  `,
 });
 
 export default createQueryRendererModern(LoginFragmentContainer, Login, {

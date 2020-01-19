@@ -1,12 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Routes from './Routes';
-import {
-  BrowserRouter as Router
-} from "react-router-dom";
+import { BrowserRouter as Router } from 'react-router-dom';
 import { RelayEnvironmentProvider } from 'react-relay/hooks';
 
-import * as serviceWorker from './serviceWorker';
+import Routes from './Routes';
 import environment from './relay/environment';
 
 ReactDOM.render(
@@ -15,6 +12,5 @@ ReactDOM.render(
       <Routes />
     </Router>
   </RelayEnvironmentProvider>,
-document.getElementById('root'));
-
-serviceWorker.unregister();
+  document.getElementById('root')
+);

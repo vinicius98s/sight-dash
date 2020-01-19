@@ -1,7 +1,7 @@
-import React from "react";
-import { Switch, Route } from "react-router-dom";
+import React from 'react';
+import { Switch, Route } from 'react-router-dom';
 
-import Login from "./pages/Login";
+import Login from './components/Login';
 
 const Routes: React.FC = () => {
   return (
@@ -10,7 +10,7 @@ const Routes: React.FC = () => {
         <Login />
       </Route>
     </Switch>
-  )
-}
+  );
+};
 
 export default Routes;
